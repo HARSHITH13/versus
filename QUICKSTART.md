@@ -20,12 +20,13 @@ dotnet run
 
 # 5. Run the Web App (in another terminal)
 cd ../Versus.Web
-dotnet run
+npm install
+npm start
 ```
 
 🎉 **Done!** Access at:
 - API: https://localhost:7001/swagger
-- Web: https://localhost:7002
+- Web: http://localhost:4200
 
 ---
 
@@ -38,7 +39,7 @@ versus/
 │   ├── Versus.Application/     ← CQRS Commands/Queries (Depends on Domain)
 │   ├── Versus.Infrastructure/  ← EF Core, Azure Services (Depends on Application)
 │   ├── Versus.Api/            ← REST API Controllers (Depends on Infrastructure)
-│   └── Versus.Web/            ← Blazor UI (Depends on Shared)
+│   └── Versus.Web/            ← Angular UI (Depends on Shared)
 ├── tests/                     ← Unit & Integration Tests
 └── docs/                      ← Architecture Documentation
 ```
@@ -50,7 +51,7 @@ versus/
 | What | Technology |
 |------|------------|
 | **Backend** | .NET 8, C# 12 |
-| **Frontend** | Blazor WebAssembly |
+| **Frontend** | Angular 18 |
 | **Database** | Azure SQL, EF Core |
 | **Cache** | Redis |
 | **Storage** | Azure Blob Storage |

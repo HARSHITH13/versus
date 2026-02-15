@@ -201,36 +201,33 @@ stages:
 - stage: BuildWeb
   displayName: 'Build Web UI'
   jobs:
-  - job: BuildBlazor
-    displayName: 'Build Blazor App'
+  - job: BuildAngular
+    displayName: 'Build Angular App'
     pool:
       vmImage: $(vmImageName)
     
     steps:
-    - task: UseDotNet@2
-      displayName: 'Install .NET SDK'
+    - task: NodeTool@0
+      displayName: 'Install Node.js'
       inputs:
-        packageType: 'sdk'
-        version: $(dotnetVersion)
+        versionSpec: '20.x'
 
-    - task: DotNetCoreCLI@2
-      displayName: 'Build Blazor App'
+    - task: Npm@1
+      displayName: 'Install Dependencies'
       inputs:
-        command: 'build'
-        projects: 'src/Versus.Web/Versus.Web.csproj'
-        arguments: '--configuration $(buildConfiguration)'
+        command: 'install'
+        workingDir: 'src/Versus.Web'
 
-    - task: DotNetCoreCLI@2
-      displayName: 'Publish Blazor App'
+    - task: Npm@1
+      displayName: 'Build Angular App'
       inputs:
-        command: 'publish'
-        publishWebProjects: false
-        projects: 'src/Versus.Web/Versus.Web.csproj'
-        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/web'
+        command: 'custom'
+        customCommand: 'run build'
+        workingDir: 'src/Versus.Web'
 
-    # Build Docker image for Blazor
+    # Build Docker image for Angular
     - task: Docker@2
-      displayName: 'Build Blazor Docker Image'
+      displayName: 'Build Angular Docker Image'
       inputs:
         containerRegistry: $(dockerRegistryServiceConnection)
         repository: 'versus-web'
@@ -241,7 +238,7 @@ stages:
           latest
 
     - task: Docker@2
-      displayName: 'Push Blazor Docker Image'
+      displayName: 'Push Angular Docker Image'
       inputs:
         containerRegistry: $(dockerRegistryServiceConnection)
         repository: 'versus-web'
@@ -253,7 +250,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Web Artifacts'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/web'
+        PathtoPublish: 'src/Versus.Web/dist'
         ArtifactName: 'web-drop'
 ```
 

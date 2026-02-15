@@ -75,9 +75,9 @@ dotnet sln add src/Versus.Infrastructure/Versus.Infrastructure.csproj
 dotnet new webapi -n Versus.Api -o src/Versus.Api -f net8.0
 dotnet sln add src/Versus.Api/Versus.Api.csproj
 
-# Create Blazor WebAssembly project
-dotnet new blazorwasm -n Versus.Web -o src/Versus.Web -f net8.0
-dotnet sln add src/Versus.Web/Versus.Web.csproj
+# Create Angular project (handled separately with Angular CLI)
+# cd src
+# ng new Versus.Web --routing --style=scss --skip-git
 
 # Create Shared project
 dotnet new classlib -n Versus.Shared -o src/Versus.Shared -f net8.0
@@ -112,8 +112,8 @@ dotnet add src/Versus.Api/Versus.Api.csproj reference src/Versus.Application/Ver
 dotnet add src/Versus.Api/Versus.Api.csproj reference src/Versus.Domain/Versus.Domain.csproj
 dotnet add src/Versus.Api/Versus.Api.csproj reference src/Versus.Shared/Versus.Shared.csproj
 
-# Web references Shared
-dotnet add src/Versus.Web/Versus.Web.csproj reference src/Versus.Shared/Versus.Shared.csproj
+# Note: Angular Web project is separate and doesn't use project references
+# It will consume the API via HTTP
 ```
 
 ### Step 5: Install NuGet Packages
@@ -170,16 +170,15 @@ dotnet add package AspNetCore.HealthChecks.Redis
 dotnet add package AspNetCore.HealthChecks.AzureStorage
 ```
 
-#### Web Project
+#### Web Project (Angular)
 ```powershell
 cd src/Versus.Web
-dotnet add package Microsoft.AspNetCore.Components.WebAssembly
-dotnet add package Microsoft.AspNetCore.Components.WebAssembly.Authentication
-dotnet add package Microsoft.Authentication.WebAssembly.Msal
-dotnet add package Microsoft.AspNetCore.SignalR.Client
-dotnet add package Blazored.LocalStorage
-dotnet add package Blazored.Toast
-dotnet add package MudBlazor
+npm install
+
+# Install additional packages
+npm install --save @angular/material @angular/cdk
+npm install --save @microsoft/signalr
+npm install --save rxjs
 ```
 
 #### Test Projects
@@ -353,13 +352,13 @@ dotnet ef database update --startup-project ../Versus.Api/Versus.Api.csproj
 cd src/Versus.Api
 dotnet run
 
-# Terminal 2 - Run Blazor Web
+# Terminal 2 - Run Angular Web
 cd src/Versus.Web
-dotnet run
+npm start
 
 # API will be available at: https://localhost:7001
 # Swagger UI: https://localhost:7001/swagger
-# Web App will be available at: https://localhost:7002
+# Web App will be available at: http://localhost:4200
 ```
 
 ### Step 10: Verify Setup

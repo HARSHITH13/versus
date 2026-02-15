@@ -9,10 +9,10 @@ This document describes the Clean Architecture implementation for the Versus Tou
 ┌─────────────────────────────────────────────────────────────────┐
 │                    PRESENTATION LAYER                            │
 │  ┌────────────────────┐  ┌────────────────────┐                │
-│  │   Web API          │  │   Blazor Web UI    │                │
-│  │   Controllers      │  │   Pages/Components │                │
+│  │   Web API          │  │   Angular Web UI   │                │
+│  │   Controllers      │  │   Components       │                │
 │  │   Middleware       │  │   State Management │                │
-│  │   Filters          │  │   SignalR Clients  │                │
+│  │   Filters          │  │   Services         │                │
 │  └────────────────────┘  └────────────────────┘                │
 └────────────────────┬───────────────────────────────────────────┘
                      │ (depends on)
@@ -226,7 +226,7 @@ Versus.sln
 │   │   │   ├── appsettings.json
 │   │   │   └── Dockerfile
 │   │   │
-│   │   └── Versus.Web/                      (Blazor WebAssembly)
+│   │   └── Versus.Web/                      (Angular SPA)
 │   │       ├── Pages/
 │   │       │   ├── Tournaments/
 │   │       │   │   ├── TournamentList.razor

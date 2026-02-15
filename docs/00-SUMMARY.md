@@ -181,7 +181,7 @@ All architecture and documentation for the **Versus Sports Tournament Management
 15. Add Application Insights monitoring
 
 ### Phase 4: Frontend (Week 7-8)
-16. Create Blazor WebAssembly app structure
+16. Create Angular app structure
 17. Implement tournament pages
 18. Implement team/player pages
 19. Add real-time score updates

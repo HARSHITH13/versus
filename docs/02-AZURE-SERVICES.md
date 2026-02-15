@@ -6,7 +6,7 @@ This document details all Azure services used in the Versus Tournament Managemen
 ## ☁️ Azure Services Breakdown
 
 ### 1. Azure App Service
-**Purpose**: Host the Web API and Blazor applications
+**Purpose**: Host the Web API and Angular applications
 
 #### Configuration
 ```yaml
@@ -44,7 +44,7 @@ Auto-Scale Rules:
 │                                                      │
 │  ┌────────────────────────────────────────────┐    │
 │  │  versus-web-app                             │    │
-│  │  - Blazor WebAssembly                       │    │
+  │  - Angular SPA                              │    │
 │  │  - Static files via CDN                     │    │
 │  └────────────────────────────────────────────┘    │
 │                                                      │
@@ -468,7 +468,7 @@ Caching:
 Routing:
   - /api/* → App Service API
   - /static/* → Blob Storage
-  - /* → Blazor App
+  - /* → Angular App
 ```
 
 ---

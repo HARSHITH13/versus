@@ -27,7 +27,7 @@
 - 🔐 **Role-based Access Control**: Admin, Organizer, Player, and Viewer roles
 - 🚀 **Cloud-Native**: Built for Azure with auto-scaling and high availability
 - 🔄 **Real-time Updates**: Live score updates using SignalR
-- 📱 **Responsive UI**: Modern Blazor WebAssembly frontend
+- 📱 **Responsive UI**: Modern Angular frontend
 
 ## ✨ Features
 
@@ -61,7 +61,7 @@ Versus follows **Clean Architecture** principles with clear separation of concer
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Presentation Layer                        │
-│              Web API + Blazor WebAssembly                    │
+│              Web API + Angular SPA                           │
 └────────────────────────┬────────────────────────────────────┘
                          │
 ┌────────────────────────┴────────────────────────────────────┐
@@ -85,7 +85,7 @@ Versus follows **Clean Architecture** principles with clear separation of concer
 | Category | Technologies |
 |----------|-------------|
 | **Backend** | .NET 8, ASP.NET Core Web API, C# 12 |
-| **Frontend** | Blazor WebAssembly, MudBlazor |
+| **Frontend** | Angular 18, TypeScript, RxJS |
 | **Database** | Azure SQL Database, Entity Framework Core |
 | **Caching** | Azure Redis Cache |
 | **Storage** | Azure Blob Storage |
@@ -169,7 +169,7 @@ versus/
 │   ├── Versus.Application/      # Use cases, DTOs, interfaces
 │   ├── Versus.Infrastructure/   # Data access, external services
 │   ├── Versus.Api/             # REST API, controllers
-│   ├── Versus.Web/             # Blazor WebAssembly UI
+│   ├── Versus.Web/             # Angular SPA
 │   └── Versus.Shared/          # Shared constants, utilities
 ├── tests/
 │   ├── Versus.Domain.UnitTests/

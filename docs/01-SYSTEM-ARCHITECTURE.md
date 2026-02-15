@@ -10,7 +10,7 @@ The **Versus** Sports Tournament Management System is a cloud-native, multi-tena
 │                         CLIENT LAYER                                 │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐             │
 │  │   Web App    │  │  Mobile App  │  │  Admin Panel │             │
-│  │   (Blazor)   │  │   (Future)   │  │   (Blazor)   │             │
+│  │   (Angular)  │  │   (Future)   │  │  (Angular)   │             │
 │  └──────────────┘  └──────────────┘  └──────────────┘             │
 └────────────────────────────┬─────────────────────────────────────────┘
                              │ HTTPS
@@ -224,7 +224,7 @@ WebSocket → Real-time to Connected Clients
 
 | Layer | Technology |
 |-------|------------|
-| Frontend | Blazor WebAssembly, Bootstrap 5 |
+| Frontend | Angular 18, TypeScript, RxJS |
 | Backend | .NET 8, ASP.NET Core Web API |
 | Database | Azure SQL Database |
 | Cache | Azure Redis Cache |
