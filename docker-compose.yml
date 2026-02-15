@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  # SQL Server for local development
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: versus-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - versus-network
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: versus-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - versus-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Azurite (Azure Storage Emulator)
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: versus-azurite
+    ports:
+      - "10000:10000"  # Blob service
+      - "10001:10001"  # Queue service
+      - "10002:10002"  # Table service
+    volumes:
+      - azurite-data:/data
+    networks:
+      - versus-network
+    command: azurite-blob --blobHost 0.0.0.0 --blobPort 10000 --silent
+
+  # Seq (Structured Logging)
+  seq:
+    image: datalust/seq:latest
+    container_name: versus-seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5341:80"
+    volumes:
+      - seq-data:/data
+    networks:
+      - versus-network
+
+  # MailHog (Email Testing)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: versus-mailhog
+    ports:
+      - "1025:1025"  # SMTP server
+      - "8025:8025"  # Web UI
+    networks:
+      - versus-network
+
+volumes:
+  sqlserver-data:
+    driver: local
+  redis-data:
+    driver: local
+  azurite-data:
+    driver: local
+  seq-data:
+    driver: local
+
+networks:
+  versus-network:
+    driver: bridge
+    name: versus-network
